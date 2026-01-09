@@ -5,7 +5,7 @@ import { getLeaderboard } from "../firebase/api";
 
 export default function Dashboard() {
   const [coins, setCoins] = useState(0);
-  const [leaders, setLeaders] = useState<any[]>([]);
+  const [leaders, setLeaders] = useState([]);
   const user = auth.currentUser;
 
   useEffect(() => {

@@ -10,13 +10,13 @@ export default function Navbar() {
     <nav className="bg-slate-900 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="/dashboard" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+          <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
             <img 
               src="/assets/logo.png" 
               alt="Finance and Consulting Club Logo" 
               className="h-8 md:h-10 w-auto"
               onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
+                e.target.style.display = 'none';
               }}
             />
             <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
@@ -25,10 +25,12 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="/dashboard" className="text-gray-300 hover:text-white transition-colors font-medium">Dashboard</Link>
+            <Link to="/" className="text-gray-300 hover:text-white transition-colors font-medium">Home</Link>
+            <a href="/#mudra" className="text-gray-300 hover:text-white transition-colors font-medium">Mudra</a>
+            <a href="/#non-core-week" className="text-gray-300 hover:text-white transition-colors font-medium">Non-Core Week</a>
             <Link to="/earn" className="text-gray-300 hover:text-white transition-colors font-medium">Earn</Link>
-            <Link to="/store" className="text-gray-300 hover:text-white transition-colors font-medium">Store</Link>
-            <Link to="/profile" className="text-gray-300 hover:text-white transition-colors font-medium">Profile</Link>
+            <a href="/#sponsors" className="text-gray-300 hover:text-white transition-colors font-medium">Sponsors</a>
+            <a href="/#team" className="text-gray-300 hover:text-white transition-colors font-medium">Team</a>
             <button onClick={() => { auth.signOut(); navigate("/"); }} className="ml-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-medium">Logout</button>
           </div>
 
@@ -53,10 +55,12 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden bg-slate-900 border-t border-slate-800">
           <div className="px-4 py-3 space-y-2">
-            <Link to="/dashboard" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Dashboard</Link>
+            <Link to="/" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Home</Link>
+            <a href="/#mudra" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Mudra</a>
+            <a href="/#non-core-week" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Non-Core Week</a>
             <Link to="/earn" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Earn</Link>
-            <Link to="/store" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Store</Link>
-            <Link to="/profile" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Profile</Link>
+            <a href="/#sponsors" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Sponsors</a>
+            <a href="/#team" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Team</a>
             <button onClick={() => { auth.signOut(); navigate("/"); }} className="w-full text-left px-0 mt-2 bg-red-600 hover:bg-red-700 text-white rounded-md py-2">Logout</button>
           </div>
         </div>

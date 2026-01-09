@@ -5,9 +5,9 @@ import { auth, db } from "../firebase/config";
 import { sendVerificationLink, getUserTransactions } from "../firebase/api";
 
 export default function Profile() {
-  const [authUser, setAuthUser] = useState<any>(null);
-  const [userData, setUserData] = useState<any>(null);
-  const [transactions, setTransactions] = useState<any[]>([]);
+  const [authUser, setAuthUser] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -55,13 +55,13 @@ export default function Profile() {
     }
   };
 
-  const formatDate = (timestamp: any) => {
+  const formatDate = (timestamp) => {
     if (!timestamp) return "N/A";
     const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
     return date.toLocaleString();
   };
 
-  const formatAmount = (amount: number) => {
+  const formatAmount = (amount) => {
     if (amount > 0) {
       return `+${amount}`;
     }

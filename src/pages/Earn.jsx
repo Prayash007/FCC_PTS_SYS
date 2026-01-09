@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { claimEventCode } from "../firebase/api";
 
-export default function Earn({ user }: { user: any }) {
+export default function Earn({ user }) {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
 
