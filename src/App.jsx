@@ -14,7 +14,7 @@ import Footer from "./components/Footer";
 import Profile from "./pages/profile";
 
 function App() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -43,7 +43,7 @@ function App() {
               alt="Finance and Consulting Club Logo" 
               className="h-24 w-auto animate-pulse"
               onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
+                e.target.style.display = 'none';
               }}
             />
           </div>

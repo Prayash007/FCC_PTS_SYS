@@ -5,12 +5,12 @@ export default function AdminPanel() {
   const [form, setForm] = useState({ title: "", code: "", points: "" });
   const [loading, setLoading] = useState(false);
   const [coinsForm, setCoinsForm] = useState({ userId: "", amount: "" });
-  const [redemptions, setRedemptions] = useState<any[]>([]);
-  const [events, setEvents] = useState<any[]>([]);
+  const [redemptions, setRedemptions] = useState([]);
+  const [events, setEvents] = useState([]);
   const [loadingRedemptions, setLoadingRedemptions] = useState(false);
   const [loadingEvents, setLoadingEvents] = useState(false);
 
-  const handleCreate = async (e: any) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
     setLoading(true);
     const res = await createEvent(form.title, form.code, Number(form.points));
@@ -27,7 +27,7 @@ export default function AdminPanel() {
     setLoadingRedemptions(true);
     try {
       const items = await getAllRedemptions();
-      setRedemptions(items as any[]);
+      setRedemptions(items);
     } finally {
       setLoadingRedemptions(false);
     }
@@ -37,7 +37,7 @@ export default function AdminPanel() {
     setLoadingEvents(true);
     try {
       const items = await getAllEvents();
-      setEvents(items as any[]);
+      setEvents(items);
     } finally {
       setLoadingEvents(false);
     }
@@ -48,7 +48,7 @@ export default function AdminPanel() {
     fetchEvents();
   }, []);
 
-  const handleAddCoins = async (e: any) => {
+  const handleAddCoins = async (e) => {
     e.preventDefault();
     if (!coinsForm.userId || !coinsForm.amount) return alert("Enter user id and amount");
     const amt = Number(coinsForm.amount);
@@ -61,14 +61,14 @@ export default function AdminPanel() {
     } else alert(res.error);
   };
 
-  const handleChangeStatus = async (id: string, status: string) => {
+    const handleChangeStatus = async (id, status) => {
     const res = await updateRedemptionStatus(id, status);
     if (res.success) {
       fetchRedemptions();
     } else alert(res.error);
   };
 
-  const handleDeleteEvent = async (id: string) => {
+  const handleDeleteEvent = async (id) => {
     if (!confirm("Delete this event/coupon? This cannot be undone.")) return;
     const res = await deleteEvent(id);
     if (res.success) {

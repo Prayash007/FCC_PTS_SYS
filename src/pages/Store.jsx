@@ -7,8 +7,8 @@ const ITEMS = [
   { id: 3, name: "Workshop Pass", cost: 200, icon: "🎓" },
 ];
 
-export default function Store({ user }: { user: any }) {
-  const [redemptions, setRedemptions] = useState<any[]>([]);
+export default function Store({ user }) {
+  const [redemptions, setRedemptions] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const fetchRedemptions = async () => {
@@ -16,7 +16,7 @@ export default function Store({ user }: { user: any }) {
     setLoading(true);
     try {
       const items = await getUserRedemptions(user.uid);
-      setRedemptions(items as any[]);
+      setRedemptions(items);
     } finally {
       setLoading(false);
     }
@@ -26,7 +26,7 @@ export default function Store({ user }: { user: any }) {
     fetchRedemptions();
   }, [user?.uid]);
 
-  const handleBuy = async (item: any) => {
+  const handleBuy = async (item) => {
     if (!confirm(`Buy ${item.name} for ${item.cost} coins?`)) return;
     const res = await redeemItem(user.uid, item.name, item.cost);
     if (res.success) {
@@ -121,7 +121,7 @@ export default function Store({ user }: { user: any }) {
               const date = r.date?.toDate ? r.date.toDate() : r.date?.toDate?.() || null;
               const formatted = date ? new Date(date).toLocaleString() : "-";
 
-              const statusClass = (status: string) => {
+              const statusClass = (status) => {
                 switch ((status || "").toLowerCase()) {
                   case "ready": return "bg-green-100 text-green-800";
                   case "collected": return "bg-gray-100 text-gray-800";

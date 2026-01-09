@@ -1,24 +1,21 @@
 import { useState } from "react";
-import { loginUser, resetPassword } from "../firebase/api";
+import { registerUser } from "../firebase/api";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+export default function Register() {
+  const [form, setForm] = useState({ name: "", email: "", pass: "", roll: "" });
   const navigate = useNavigate();
 
-  const handleLogin = async (e: any) => {
+  const handleReg = async (e) => {
     e.preventDefault();
-    const res = await loginUser(email, pass);
-    if (res.success) navigate("/dashboard");
-    else alert(res.error);
-  };
-
-  const handleForgotPass = async () => {
-    if (!email) return alert("Please enter your email first!");
-    const res = await resetPassword(email);
-    if (res.success) alert("Reset link sent! Check your email.");
-    else alert(res.error);
+    const res = await registerUser(form.email, form.pass, form.name, form.roll);
+    
+    if (res.success) {
+      alert("Account created! We sent a verification link to your email. Please click it before logging in.");
+      navigate("/");
+    } else {
+      alert(res.error);
+    }
   };
 
   return (
@@ -32,19 +29,49 @@ export default function Login() {
               alt="Finance and Consulting Club Logo" 
               className="h-20 w-auto"
               onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
+                e.target.style.display = 'none';
               }}
             />
           </div>
           <h1 className="text-4xl font-bold text-white mb-2">Finance & Consulting Club</h1>
-          <p className="text-gray-400">Student Portal Login</p>
+          <p className="text-gray-400">Join Our Community</p>
         </div>
 
-        {/* Login Card */}
+        {/* Register Card */}
         <div className="bg-white rounded-2xl shadow-2xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Welcome Back</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Create Account</h2>
           
-          <form onSubmit={handleLogin} className="space-y-5">
+          <form onSubmit={handleReg} className="space-y-5">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                Full Name
+              </label>
+              <input 
+                id="name"
+                type="text"
+                placeholder="Enter your full name"
+                value={form.name}
+                onChange={e => setForm({...form, name: e.target.value})}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="roll" className="block text-sm font-medium text-gray-700 mb-2">
+                Roll Number
+              </label>
+              <input 
+                id="roll"
+                type="text"
+                placeholder="Enter your roll number"
+                value={form.roll}
+                onChange={e => setForm({...form, roll: e.target.value})}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+                required
+              />
+            </div>
+
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
@@ -53,8 +80,8 @@ export default function Login() {
                 id="email"
                 type="email"
                 placeholder="Enter your email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                value={form.email}
+                onChange={e => setForm({...form, email: e.target.value})}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
                 required
               />
@@ -66,10 +93,10 @@ export default function Login() {
               </label>
               <input 
                 id="password"
-                type="password" 
-                placeholder="Enter your password"
-                value={pass}
-                onChange={e => setPass(e.target.value)}
+                type="password"
+                placeholder="Create a password"
+                value={form.pass}
+                onChange={e => setForm({...form, pass: e.target.value})}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
                 required
               />
@@ -79,24 +106,15 @@ export default function Login() {
               type="submit"
               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
             >
-              Sign In
+              Sign Up
             </button>
           </form>
 
-          <div className="mt-6 text-center">
-            <button
-              onClick={handleForgotPass}
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
-            >
-              Forgot Password?
-            </button>
-          </div>
-
           <div className="mt-6 pt-6 border-t border-gray-200 text-center">
             <p className="text-sm text-gray-600">
-              New here?{" "}
-              <Link to="/register" className="text-blue-600 hover:text-blue-700 font-semibold transition-colors">
-                Create Account
+              Already a member?{" "}
+              <Link to="/" className="text-blue-600 hover:text-blue-700 font-semibold transition-colors">
+                Login
               </Link>
             </p>
           </div>
