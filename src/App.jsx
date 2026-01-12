@@ -58,7 +58,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {user && <CustomCursor />}
+      {<CustomCursor />}
       {user && <Navbar />}
       <div className={user ? "pt-20" : ""}>
         <Routes>
