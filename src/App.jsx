@@ -9,9 +9,11 @@ import Dashboard from "./pages/Dashboard";
 import Earn from "./pages/Earn";
 import Store from "./pages/Store";
 import AdminPanel from "./pages/AdminPanel";
+import Leaderboard from "./pages/Leaderboard";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Profile from "./pages/profile";
+import CustomCursor from "./components/CustomCursor";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -56,17 +58,21 @@ function App() {
 
   return (
     <BrowserRouter>
+      {user && <CustomCursor />}
       {user && <Navbar />}
-      <Routes>
-        <Route path="/" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
-        <Route path="/register" element={!user ? <Register /> : <Navigate to="/dashboard" />} />
-        
-        <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/" />} />
-        <Route path="/earn" element={user ? <Earn user={user}/> : <Navigate to="/" />} />
-        <Route path="/store" element={user ? <Store user={user}/> : <Navigate to="/" />} />
-        <Route path="/profile" element={user ? <Profile /> : <Navigate to="/" />} />
-        <Route path="/admin" element={isAdmin ? <AdminPanel /> : <Navigate to="/dashboard" />} />
-      </Routes>
+      <div className={user ? "pt-20" : ""}>
+        <Routes>
+          <Route path="/" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
+          <Route path="/register" element={!user ? <Register /> : <Navigate to="/dashboard" />} />
+          
+          <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/" />} />
+          <Route path="/earn" element={user ? <Earn user={user}/> : <Navigate to="/" />} />
+          <Route path="/store" element={user ? <Store user={user}/> : <Navigate to="/" />} />
+          <Route path="/leaderboard" element={user ? <Leaderboard /> : <Navigate to="/" />} />
+          <Route path="/profile" element={user ? <Profile /> : <Navigate to="/" />} />
+          <Route path="/admin" element={isAdmin ? <AdminPanel /> : <Navigate to="/dashboard" />} />
+        </Routes>
+      </div>
       <Footer />
     </BrowserRouter>
   );

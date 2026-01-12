@@ -30,6 +30,7 @@ export default function Navbar() {
             <a href="/#non-core-week" className="text-gray-300 hover:text-white transition-colors font-medium">Non-Core Week</a>
             <Link to="/earn" className="text-gray-300 hover:text-white transition-colors font-medium">Earn</Link>
             <a href="/#sponsors" className="text-gray-300 hover:text-white transition-colors font-medium">Sponsors</a>
+            <a href="/leaderboard" className="text-gray-300 hover:text-white transition-colors font-medium">Leader Board</a>
             <a href="/#team" className="text-gray-300 hover:text-white transition-colors font-medium">Team</a>
             <button onClick={() => { auth.signOut(); navigate("/"); }} className="ml-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-medium">Logout</button>
           </div>
