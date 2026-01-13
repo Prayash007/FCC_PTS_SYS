@@ -59,7 +59,7 @@ function App() {
   return (
     <BrowserRouter>
       {<CustomCursor />}
-      {user && <Navbar />}
+      {<Navbar />}
       <div className={user ? "pt-20" : ""}>
         <Routes>
           <Route path="/" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
@@ -68,7 +68,7 @@ function App() {
           <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/" />} />
           <Route path="/earn" element={user ? <Earn user={user}/> : <Navigate to="/" />} />
           <Route path="/store" element={user ? <Store user={user}/> : <Navigate to="/" />} />
-          <Route path="/leaderboard" element={user ? <Leaderboard /> : <Navigate to="/" />} />
+          <Route path="/leaderboard" element={user ? <Leaderboard /> : <Navigate to="/leaderboard" />} />
           <Route path="/profile" element={user ? <Profile /> : <Navigate to="/" />} />
           <Route path="/admin" element={isAdmin ? <AdminPanel /> : <Navigate to="/dashboard" />} />
         </Routes>

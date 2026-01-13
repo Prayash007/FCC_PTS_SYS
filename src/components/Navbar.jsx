@@ -5,6 +5,7 @@ import { auth } from "../firebase/config";
 export default function Navbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const user = auth.currentUser;
 
   return (
     <nav className="bg-slate-900 text-white shadow-lg">
@@ -25,12 +26,12 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="text-gray-300 hover:text-white transition-colors font-medium">Home</Link>
+            {user && (<Link to="/" className="text-gray-300 hover:text-white transition-colors font-medium">Home</Link>)}
             <a href="/#mudra" className="text-gray-300 hover:text-white transition-colors font-medium">Mudra</a>
             <a href="/#non-core-week" className="text-gray-300 hover:text-white transition-colors font-medium">Non-Core Week</a>
-            <Link to="/earn" className="text-gray-300 hover:text-white transition-colors font-medium">Earn</Link>
+            {user && <Link to="/earn" className="text-gray-300 hover:text-white transition-colors font-medium">Earn</Link>}
             <a href="/#sponsors" className="text-gray-300 hover:text-white transition-colors font-medium">Sponsors</a>
-            <a href="/leaderboard" className="text-gray-300 hover:text-white transition-colors font-medium">Leader Board</a>
+            {user && <a href="/leaderboard" className="text-gray-300 hover:text-white transition-colors font-medium">Leader Board</a>}
             <a href="/#team" className="text-gray-300 hover:text-white transition-colors font-medium">Team</a>
             <button onClick={() => { auth.signOut(); navigate("/"); }} className="ml-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-medium">Logout</button>
           </div>
@@ -56,11 +57,12 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden bg-slate-900 border-t border-slate-800">
           <div className="px-4 py-3 space-y-2">
-            <Link to="/" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Home</Link>
+            {user && <Link to="/" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Home</Link>}
             <a href="/#mudra" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Mudra</a>
             <a href="/#non-core-week" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Non-Core Week</a>
-            <Link to="/earn" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Earn</Link>
+            {user && <Link to="/earn" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Earn</Link>}
             <a href="/#sponsors" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Sponsors</a>
+            {user && <a href="/leaderboard" className="text-gray-300 hover:text-white transition-colors font-medium">Leader Board</a>}
             <a href="/#team" onClick={() => setOpen(false)} className="block text-gray-300 hover:text-white">Team</a>
             <button onClick={() => { auth.signOut(); navigate("/"); }} className="w-full text-left px-0 mt-2 bg-red-600 hover:bg-red-700 text-white rounded-md py-2">Logout</button>
           </div>

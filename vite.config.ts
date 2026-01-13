@@ -4,5 +4,10 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    allowedHosts: [
+      'smellable-sublanate-tyesha.ngrok-free.dev'
+    ]
+  },
   plugins: [react(), tailwindcss()],
 })
